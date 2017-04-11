@@ -1,7 +1,7 @@
 FROM node:alpine
 
 RUN apk update && apk upgrade && \
-    apk add --no-cache  git ttf-dejavu fontconfig
+    apk add --no-cache  git ttf-dejavu fontconfig openssh
 
 
 # A few problems with compiling Java from source:
@@ -52,4 +52,7 @@ ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 ENV MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=1024m"
 
 VOLUME "$USER_HOME_DIR/.m2"
+
+# Don't need to verify repo ssh
+COPY ./ssh_config /etc/ssh/
 
